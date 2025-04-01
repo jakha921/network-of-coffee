@@ -1,6 +1,78 @@
-# Backend для сети кофеен на вынос
+# Network of Coffee API
 
-Этот проект представляет собой REST API для управления пользователями, меню, заказами, корзиной и поддержкой, реализованное с использованием FastAPI, PostgreSQL (или другой реляционной СУБД), JWT для аутентификации, Docker для контейнеризации и Swagger для документирования API.
+API для сети кофеен с использованием FastAPI.
+
+## Требования
+
+- Python 3.8+
+- PostgreSQL
+- pip
+
+## Установка
+
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/yourusername/network-of-coffee-api.git
+cd network-of-coffee-api
+```
+
+2. Создайте виртуальное окружение и активируйте его:
+```bash
+python -m venv venv
+source venv/bin/activate  # для Linux/Mac
+# или
+venv\Scripts\activate  # для Windows
+```
+
+3. Установите зависимости:
+```bash
+pip install -r requirements.txt
+```
+
+4. Создайте файл .env в корневой директории проекта:
+```env
+DATABASE_URL=postgresql://postgres:root@localhost:5432/network-of-coffee-db
+SECRET_KEY=your-secret-key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
+
+5. Примените миграции:
+```bash
+alembic upgrade head
+```
+
+## Запуск
+
+1. Запустите сервер разработки:
+```bash
+uvicorn src.main:app --reload
+```
+
+2. Откройте браузер и перейдите по адресу:
+```
+http://127.0.0.1:8000/api
+```
+
+## Тестирование
+
+Для запуска тестов выполните:
+```bash
+pytest
+```
+
+## API Endpoints
+
+- POST /api/register - Регистрация пользователя
+- POST /api/token - Получение токена авторизации
+- GET /api/me - Информация о текущем пользователе
+- GET /api/users - Список пользователей (только для админов)
+- GET /api/products - Список продуктов
+- GET /api/categories - Список категорий
+- GET /api/orders - Список заказов
+- GET /api/cart - Корзина
+- GET /api/chat - Чат
+- GET /api/static - Статические файлы
 
 ---
 

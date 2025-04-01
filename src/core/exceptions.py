@@ -76,3 +76,53 @@ class AlreadyExistsException(BaseException):
 
     def __init__(self, detail: str = None):
         super().__init__(detail=detail)
+
+
+class BaseAPIException(HTTPException):
+    def __init__(
+        self,
+        status_code: int,
+        detail: str,
+        headers: dict = None
+    ):
+        super().__init__(status_code=status_code, detail=detail, headers=headers)
+
+
+class NotFoundException(BaseAPIException):
+    def __init__(self, detail: str = "Resource not found"):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=detail
+        )
+
+
+class ValidationException(BaseAPIException):
+    def __init__(self, detail: str = "Validation error"):
+        super().__init__(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=detail
+        )
+
+
+class AuthenticationException(BaseAPIException):
+    def __init__(self, detail: str = "Authentication failed"):
+        super().__init__(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=detail
+        )
+
+
+class PermissionException(BaseAPIException):
+    def __init__(self, detail: str = "Permission denied"):
+        super().__init__(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=detail
+        )
+
+
+class DatabaseException(BaseAPIException):
+    def __init__(self, detail: str = "Database error"):
+        super().__init__(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=detail
+        )
